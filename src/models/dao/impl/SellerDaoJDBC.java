@@ -29,6 +29,7 @@ public class SellerDaoJDBC implements SellerDao {
                                             "(name, email, birthdate, basesalary, departmentid) " +
                                             "values " +
                                             "(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            
             st.setString(1, obj.getName());
             st.setString(2, obj.getEmail());
             st.setDate(3, new java.sql.Date(obj.getBirthDate().getTime()));
@@ -111,8 +112,8 @@ public class SellerDaoJDBC implements SellerDao {
 
             if (rs.next()){
                 Department dep = instantiateDepartment(rs);
-                Seller obj = instantiateSeller(rs, dep);
-                return obj;
+
+                return instantiateSeller(rs, dep);
             }
             return null;
         } catch (SQLException e) {
